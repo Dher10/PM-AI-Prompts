@@ -1,117 +1,182 @@
-# Meeting Minutes from Transcript
+# Meeting Summary from Transcript
 
 ## Purpose
 
-Generate structured meeting minutes from a meeting transcript and populate a provided meeting template.
+Generate a concise and structured meeting summary from a meeting transcript.
 
-The objective is to extract relevant information from the discussion and accurately complete the provided format without altering its structure.
+This prompt transforms raw meeting transcripts into practical, actionable notes focused on the meeting context, key discussion points, decisions, confirmed commitments and critical follow-up items.
 
-The final result must be delivered as a downloadable document using the same format as the provided template.
+This prompt is designed for general use and does not require a predefined template.
 
 ---
 
 ## Inputs
 
-The prompt expects the following inputs:
+Required input:
 
 - Meeting transcript
-- Meeting template (Excel or Word format)
 
 Optional inputs:
 
-- Additional context about the meeting
-- Specific instructions related to the document
+- Meeting title
+- Meeting date
+- Meeting context
+- Expected participants
+- Specific instructions about the desired level of detail
+
+The transcript may be pasted directly or provided as an uploaded file, such as Word, PDF, TXT or another readable document format.
 
 ---
 
 ## Language Handling
 
-The generated content must follow the language used in the meeting transcript.
+The output language must match the main language of the meeting transcript.
 
 Rules:
 
-- Spanish transcript → Spanish content
-- English transcript → English content
+- Spanish transcript → Spanish output
+- English transcript → English output
 
-If the template is written in a specific language:
-
-- The structure and labels of the template must remain unchanged.
-- Only the content fields should be populated.
+Section headings, table headers and generated content must use the same language as the transcript.
 
 ---
 
 ## Prompt Instructions
 
-You are an expert Product Management assistant specialized in documentation and meeting analysis.
+You are an experienced Product Management assistant responsible for creating clear, concise and actionable meeting summaries.
 
-Your task is to analyze the meeting transcript and populate the provided meeting template.
+Analyze the provided transcript and generate a structured meeting summary.
 
-Follow the process below.
+If an uploaded file or pasted content contains meeting metadata, speaker names, timestamps or conversational dialogue, treat it as the meeting transcript.
 
-### Step 1 — Extract structured notes
+Do not summarize the prompt instructions themselves.
 
-First analyze the meeting transcript and extract the following information:
+Use only the information available in the transcript and any additional context provided by the user.
 
-- main discussion topics
-- key insights
-- decisions made
-- action items
-- responsible stakeholders
-- open questions
+Do not invent information.
 
-Organize this information clearly before attempting to populate the template.
+If information is missing, write:
 
-This step is used to structure the information and should not be included in the final output.
+`Not specified`
 
----
+If information is unclear, write:
 
-### Step 2 — Populate the template
+`Not clearly specified`
 
-Using the structured notes extracted in Step 1:
+If a commitment is clear but no responsible person or team is identified, write:
 
-1. Map the information to the corresponding fields in the template.
-2. Populate the template while preserving its original structure.
-3. Ensure the information is placed in the correct sections.
+`Not assigned`
 
-Important rules:
+Focus on:
 
-- Do not modify the structure of the template.
-- Do not rename sections, tables, sheets or headings.
-- Do not add new columns, rows or sections unless they already exist.
-- Do not invent information that is not present in the transcript.
-- If information is missing, leave the field blank or indicate "Not specified".
+1. Who participated
+2. What the meeting was about
+3. What was discussed
+4. What was decided
+5. What commitments were confirmed
+6. What critical follow-up is still pending
+
+A confirmed commitment is an action that someone agreed to do, was assigned to do, or is clearly expected as a follow-up from the meeting.
+
+Keep the output concise and practical.
+
+The summary may extend beyond one page when the meeting contains several relevant decisions or commitments.
+
+Prioritize clarity and follow-up value over exhaustive detail.
 
 ---
 
 ## Output Format
 
-The final output must be the completed version of the provided template.
+Generate the output using the following structure:
+
+# Meeting Summary
+
+## Meeting Information
+
+| Field | Information |
+|---|---|
+| Meeting title / topic | |
+| Date | |
+| Duration | |
+| Participants | |
+
+## Executive Summary
+
+Write up to 3 concise bullets focused on the purpose and main outcome of the meeting.
+
+## Key Topics Discussed
+
+List up to 3 key topics discussed.
+
+Each topic should be concise and focused on what matters for understanding the meeting outcome.
+
+## Key Decisions
+
+List up to 3 key decisions made during the meeting.
+
+If no clear decisions were made, write:
+
+`No key decisions were clearly specified in the transcript.`
+
+## Confirmed Commitments
+
+| Commitment | Responsible | Due date / Validation date | Notes |
+|---|---|---|---|
+| | | | |
 
 Rules:
 
-- The document structure must remain exactly the same.
-- Only the relevant fields should be filled.
-- No additional sections, sheets or formatting changes should be introduced.
+- Include only commitments that require follow-up.
+- Write each commitment as a clear action.
+- Use `Not assigned` when the responsible person or team is not clear.
+- Use `Not specified` when no due date or validation date is mentioned.
+- Keep notes short and factual.
 
-The output must be generated as a downloadable file using the same format as the original template.
+If no confirmed commitments were identified, write:
 
-Examples:
+`No confirmed commitments were clearly specified in the transcript.`
 
-Excel template → downloadable `.xlsx` file  
-Word template → downloadable `.docx` file
+## Pending Follow-up
+
+Include only critical pending questions, blockers or validations that require follow-up.
+
+Use a maximum of 2 bullets.
+
+If there are no critical pending items, write:
+
+`No critical pending follow-up was clearly specified in the transcript.`
+
+---
+
+## Output Delivery
+
+Generate the response in a Word-friendly format.
+
+Use clear headings, short paragraphs, bullets and tables that can be easily copied into a `.docx` document.
+
+If the environment supports file generation, create a downloadable `.docx` file with the same content.
+
+Do not include the raw transcript content.
+
+Do not include internal reasoning, tool usage notes or file inspection comments.
 
 ---
 
 ## Validation
 
-Before producing the final document, verify that:
+Before producing the final output, verify that:
 
-- The template structure has not been modified.
-- All populated fields correspond to information present in the transcript.
-- The language of the generated content matches the meeting transcript.
-- The file remains valid and compatible with its original format.
+- The output follows the required structure.
+- The output language matches the transcript language.
+- No information has been invented.
+- Missing or unclear information is marked correctly.
+- The summary is concise and practical.
+- Commitments are clearly separated from general discussion.
+- Each commitment includes a responsible person/team or `Not assigned`.
+- Each commitment includes a due date/validation date or `Not specified`.
 
-If issues are detected, correct them before generating the downloadable file.
+If any issues are detected, correct them before generating the final output.
 
 ---
 
@@ -119,5 +184,6 @@ If issues are detected, correct them before generating the downloadable file.
 
 | Version | Description |
 |--------|-------------|
+| v3.0 | Refactored the prompt into a general meeting summary prompt focused on structured notes, decisions, confirmed commitments and Word-friendly output without requiring a predefined template |
 | v2.0 | Updated prompt structure to align with repository standards and support Excel or Word templates |
 | v1.0 | Initial version of the prompt |
